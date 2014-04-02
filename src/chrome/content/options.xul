@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://unmark/locale/options.dtd">
+<prefwindow
+    id="unmark-preferences-prefwindow"
+    title="Unmark Preferences"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<prefpane id="unmark-preferences-prefpane" label="&pref_title;">
+		<preferences>
+			<preference id="unmark-url" name="extensions.unmark.url" type="string" />
+		</preferences>
+
+		<groupbox>
+			<caption label="Connection Settings" />
+			<grid>
+				<columns>
+					<column flex="4" />
+					<column flex="1" />
+				</columns>
+				<rows>
+					<row>
+						<label control="url" value="&lbl_server_url;" />
+						<textbox id="url" preference="unmark-url" width="300" maxlength="1024" />
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+
+	</prefpane>
+</prefwindow>

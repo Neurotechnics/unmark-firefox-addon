@@ -1,0 +1,9 @@
+content     unmark  chrome/content/
+content     unmark  chrome/content/ contentaccessible=yes
+skin        unmark  classic/1.0     skin/
+
+### Firefox ###
+overlay     chrome://browser/content/browser.xul            chrome://unmark/content/browser.xul
+style       chrome://global/content/customizeToolbar.xul    chrome://unmark/skin/skin.css
+
+locale      unmark  en-US               locale/en-US/

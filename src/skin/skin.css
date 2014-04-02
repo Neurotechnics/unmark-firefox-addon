@@ -1,0 +1,19 @@
+#unmark-toolbar-button {
+	list-style-image: URL("chrome://unmark/skin/toolbar-large.png");
+}
+
+toolbar[iconsize="small"] #unmark-toolbar-button {
+    list-style-image: url("chrome://unmark/skin/toolbar-small.png");
+}
+
+#unmark-status-bar-icon {
+	width: 83px;
+	margin: 0 5px;
+}
+
+#unmark-toolbarmenuitem-run,
+.unmark-menu-run
+{
+    list-style-image: url("toolbar-small.png");
+    -moz-image-region: rect(0px 16px 16px 0px);
+}
