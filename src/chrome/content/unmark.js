@@ -1,13 +1,13 @@
-/* Setup "neurotechnics.com" Namespace */
-if (!com) { var com = {}; }
-if (!com.neurotechnics) { com.neurotechnics = {}; }
+// Setup "neurotechnics.com" Namespace
+if (typeof com == 'undefined') { var com = {}; }
+if (typeof com.neurotechnics == 'undefined') { com.neurotechnics = {}; }
 com.neurotechnics.unmark = {};
 
 (function (unmark) {
 
     unmark.version         = "0.1.4";
-    unmark.iVersion        = 2014032801;
-    unmark.debug           = true;
+    unmark.iVersion        = 2014042901;
+    unmark.debug           = false;
     unmark.preferences     = null;
     unmark.tabContainer    = null;
     unmark.unmarkUrl       = '';
@@ -16,9 +16,14 @@ com.neurotechnics.unmark = {};
         firstRun            : "firstRun",
         serverUrl           : "url",
         defaultServerUrl    : "https://unmark.it"
+        //,firstRunPref        : "extensions.unmark.firstRun";
     };
     //unmark.consoleService  = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
 
+    /**
+     * The main "Unamrk" intialization function. Called when the browser loads.
+     * @return {void}
+     */
     unmark.startup = function () {
         unmark.log("startup()");
         unmark.preferences = Components.classes["@mozilla.org/preferences-service;1"]
@@ -27,7 +32,6 @@ com.neurotechnics.unmark = {};
 
         unmark.tabContainer = gBrowser.tabContainer;
 
-        //var firstRunPref = "extensions.unmark.firstRun";
         //if (!Application.prefs.getValue(firstRunPref, 0) < unmark.iVersion) {
         if (unmark.preferences.getIntPref(unmark.constants.firstRun, 0) < unmark.iVersion) {
             unmark.log("First Run for version "+ unmark.version);
@@ -36,26 +40,28 @@ com.neurotechnics.unmark = {};
             unmark.preferences.setIntPref(unmark.constants.firstRun, unmark.iVersion);
             // all the rest of the first run code goes here.
         }
-        /*
-        if (unmark.preferences.getBoolPref("firstRun")) {
-            unmark.installButton('nav-bar', unmark.toolbarButtonId);
-            unmark.preferences.setBoolPref("firstRun", true);
-        }
-        */
         unmark.unmarkUrl = unmark.getServerUrl();
         unmark.preferences.addObserver("", this, false);
         unmark.tabContainer.addEventListener("TabSelect", unmark._tabSelect, false);
         gBrowser.addEventListener("load", unmark._loadHandler, true);
     };
 
+    /**
+     * The "shutdown" function is called when the browser closes.
+     * @return {void}
+     */
     unmark.shutdown = function () {
         unmark.log("shutdown()");
         unmark.preferences.removeObserver("", this);
-        // When no longer needed
         unmark.tabContainer.removeEventListener("TabSelect", unmark._tabSelect, false);
         gBrowser.removeEventListener("load", unmark._loadHandler, true);
     };
 
+    /**
+     * A logging function to send messages to the Firefox console. (Only when unmark.debug == true)
+     * @param  {String} message The console log message
+     * @return {void}
+     */
     unmark.log = function (message) {
         //if (unmark.debug) unmark.consoleService.logStringMessage('Unmark >> '+ message);
         if (unmark.debug) {
@@ -63,6 +69,11 @@ com.neurotechnics.unmark = {};
         }
     };
 
+    /**
+     * Called when the user clicks a mouse button on the toolbar button control.
+     * @param  {MouseEvent} event The MouseEvent object.
+     * @return {void}
+     */
     unmark.onclick = function (event) {
         unmark.log('onClick(): Button = ' + event.button);
         switch(event.button) {
@@ -80,26 +91,59 @@ com.neurotechnics.unmark = {};
         }
     };
 
+    /**
+     * Executes when the user elects to bookmark the current tab.
+     * @return {void}
+     */
     unmark.run = function () {
         unmark.log('run()');
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator),
             recentWindow = wm.getMostRecentWindow("navigator:browser"),
             doc = gBrowser.contentDocument,
             recentUrl = recentWindow ? recentWindow.content.document.location.href : (doc ? doc.location.href : false),
-            title = recentWindow ? recentWindow.content.document.title : (doc ? (doc.title || '') : '');
+            title = recentWindow ? recentWindow.content.document.title : (doc ? (doc.title || '') : ''),
+            description = unmark._getMeta('description', doc),
+            keywords = unmark._getMeta('keywords', doc);
+
+        //unmark.log("Description: "+description);
+        //unmark.log("Keywords: "+keywords);
 
         if (recentUrl) {
             unmark.log('Bookmarking: '+ recentUrl);
             var url = unmark.unmarkUrl + "/mark/add?url=" + encodeURIComponent(recentUrl);
             url += "&title="+ encodeURIComponent(title);
-            url += "&v=1&nowindow=yes";
-            var w = window.open(url+"&noui=1", "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
+            if (description || keywords) {
+                url += "&notes=";
+                if (description) url += encodeURIComponent(description);
+                if (keywords) {
+                    // Some sites separate keywords with a semi-colon instead of comma (tisk tisk)
+                    var aKeys = keywords.replace(/;/g, ',').split(',');
+
+                    //if the last element is blank, pop it off the end of the array.
+                    aKeys = aKeys.filter(function(o){ return o!== ''; });
+
+                    for (var i = aKeys.length - 1; i >= 0; i--) {
+                        aKeys[i] = aKeys[i].replace(/[ \-]/gi, '-').trim();
+                    }
+                    var tagString = ' #'+ aKeys.join(' #');
+                    url += encodeURIComponent(tagString);
+                }
+            }
+            //Notes?? 0x23 = #
+            url += "&v=1&nowindow=yes&noui=1";
+            unmark.log("URL: "+ url);
+            //var w = window.open(url+"&noui=1", "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
+            var w = window.open(url, "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
         } else {
             unmark.log('An error occured bookmarking this tab');
             alert("Please wait until the current tab has loaded before trying to bookmark it.");
         }
     };
 
+    /**
+     * Executes when the user elects to view their bookmark to-do/reading list
+     * @return {void}
+     */
     unmark.launchSite = function () {
         unmark.log("launchSite()");
         var tBrowser = top.document.getElementById("content");
@@ -109,6 +153,35 @@ com.neurotechnics.unmark = {};
         tBrowser.selectedTab = tab;
     };
 
+    /**
+     * Retrieves the "content" value of <meta/> tags with the name specified by "type".
+     * @param  {String} type The type of meta tag we are looking for. e.g. description, keywords etc.
+     * @param  {Object} doc  The Dom Document object.
+     * @return {String/Bool} The "Content" value of the meta tag (if found, "false" if not).
+     */
+    unmark._getMeta = function(type, doc) {
+        if (!type || !doc) return false;
+
+        var meta_elements = doc.getElementsByTagName('meta'),
+            sType = type.toLowerCase();
+
+        for (var i = meta_elements.length - 1; i >= 0; i--) {
+            var meta = meta_elements[i];
+            if (com.neurotechnics.lib.is(meta, 'HTMLMetaElement')) {
+                var name = meta.name.toLowerCase();
+                if (name == sType) {
+                    return meta.content;
+                }
+            }
+        }
+
+        return false;
+    };
+
+    /**
+     * Executes when the user changes tabs, verifies the URL of the tab is valid, and updates the toolbar button state accordingly.
+     * @param  {Event} event The tab-changed event object
+     */
     unmark._tabSelect = function (event) {
         // browser is the XUL element of the browser that's just been selected
         var browser = gBrowser.selectedBrowser;
@@ -117,6 +190,11 @@ com.neurotechnics.unmark = {};
         unmark._setButtonState(p);
     };
 
+    /**
+     * Executes when the borwser loads the contents of a tab.
+     * @param  {Event} event The window.load event object.
+     * @return {void}
+     */
     unmark._loadHandler = function (event) {
         // this is the content document of the loaded page.
         var doc = event.originalTarget;
@@ -134,15 +212,26 @@ com.neurotechnics.unmark = {};
         }
     };
 
+    /**
+     * Enables/disables the toolbar button based on the "protocol" of the currently selected tab
+     * @param {String} protocol The "protocol" part of the URL loaded in the currently selected tab (e.g 'http:').
+     */
     unmark._setButtonState = function (protocol) {
-        var reg = /^(http[s]?|ftp):$/i;
+        var reg = /^(ht|f)tps?:$/i;
+        //Valid - http: https: ftp: ftps:
         var valid = reg.test(protocol);
         //Deactivate the button for invalid url's
         var button = document.getElementById(unmark.toolbarButtonId);
         if (button) { button.disabled = !valid; }
     };
 
-
+    /**
+     * Executes when the Options for this extension are changed.
+     * @param  {String} subject [description]
+     * @param  {String} topic   [description]
+     * @param  {String} data    [description]
+     * @return {void}
+     */
     unmark.observe = function (subject, topic, data) {
         unmark.log("observe(Subject: "+ subject +"; Topic: "+ topic +"; Data: "+ data +")");
 
@@ -161,6 +250,10 @@ com.neurotechnics.unmark = {};
         }
     };
 
+    /**
+     * Loads the "Server URL" setting from the extension preferences (as defined by the user).
+     * @return {String} The URL for the Unmark srever the user has chosen to connect to.
+     */
     unmark.getServerUrl = function () {
         //unmark.log("getServerUrl()");
         var url = unmark.preferences.getCharPref(unmark.constants.serverUrl) || unmark.constants.defaultServerUrl;
@@ -174,9 +267,9 @@ com.neurotechnics.unmark = {};
      * Installs the toolbar button with the given ID into the given
      * toolbar, if it is not already present in the document.
      *
-     * @param {string} toolbarId The ID of the toolbar to install to.
-     * @param {string} id The ID of the button to install.
-     * @param {string} afterId The ID of the element to insert after. @optional
+     * @param {String} toolbarId The ID of the toolbar to install to.
+     * @param {String} id The ID of the button to install.
+     * @param {String} afterId The ID of the element to insert after. @optional
      */
     unmark.installButton = function (toolbarId, id, afterId) {
         //unmark.log("installButton("+ toolbarId +", "+ id +", "+ afterId +")");

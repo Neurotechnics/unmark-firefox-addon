@@ -3,6 +3,7 @@
 <!DOCTYPE overlay SYSTEM "chrome://unmark/locale/translations.dtd">
 <overlay id="unmark-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://unmark/content/neurotechnics.lib.js"/>
     <script type="application/x-javascript" src="chrome://unmark/content/unmark.js"/>
     <script type="application/x-javascript">
     <![CDATA[
