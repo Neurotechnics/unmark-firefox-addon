@@ -20,19 +20,18 @@ or, sign up for a free or premium account at [https://unmark.it](https://unmark.
 
 ## Version History
 
+### 0.1.4 - April 29, 2014
+
+* Automatically add "notes" based on the pages description and keyword meta-tags.
+
 ### 0.1.3 - March 28, 2014
-* Combines all features of 0.1.1 and 0.1.2 into a bug-free release.
- 
-### 0.1.2 - March 27, 2014
-***(unreleased)***
+
+*(Combines all features of 0.1.1 and 0.1.2)*
+
 * Added Toolbar menu;
 * Added menu icons;
 * Fixed localization references;
 * Updated url validation for unloaded tabs;
-
-### 0.1.1 - March 26, 2014
-***(unreleased)***
-
 * Disable unmark toolbar button when the active browser tab does not contain a valid web-page;
 * Updated preferences window layout;
 

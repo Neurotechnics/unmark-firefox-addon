@@ -17,10 +17,10 @@ module.exports = function(grunt) {
     }
 
     var js_file_config = {
-                            '<%= build.dest %>/chrome/content/unmark.js': [
-                                '<%= build.source %>/chrome/content/unmark.js'
-                            ]
-                        }
+            '<%= build.dest %>/chrome/content/unmark.js': [
+                '<%= build.source %>/chrome/content/unmark.js'
+            ]
+        };
 
     // Base Config
     var config = {

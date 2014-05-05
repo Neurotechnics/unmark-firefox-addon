@@ -1,6 +1,6 @@
 // Setup "neurotechnics.com" Namespace
 if (typeof com == 'undefined') { var com = {}; }
-if (typeof com.neurotechnics == 'undefined') { com.neurotechnics = {}; }
+com.neurotechnics = com.neurotechnics || {};
 com.neurotechnics.unmark = {};
 
 (function (unmark) {
@@ -131,7 +131,7 @@ com.neurotechnics.unmark = {};
             }
             //Notes?? 0x23 = #
             url += "&v=1&nowindow=yes&noui=1";
-            unmark.log("URL: "+ url);
+            //unmark.log("URL: "+ url);
             //var w = window.open(url+"&noui=1", "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
             var w = window.open(url, "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
         } else {
@@ -283,7 +283,7 @@ com.neurotechnics.unmark = {};
             try {
                 BrowserToolboxCustomizeDone(true);
             } catch (e) {
-                Comonpents.utils.reportError(e);
+                //Comonpents.utils.reportError(e);
             }
         }
 
