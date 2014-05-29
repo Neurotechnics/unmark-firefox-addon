@@ -1,0 +1,25 @@
+
+//prefwindow
+#unmark-preferences-prefwindow {
+    max-width: 42em;
+    min-height: 20em;
+}
+
+#unmark-preferences-prefpane {
+
+    description {
+        white-space: pre-line;
+    }
+
+}
+
+.notes {
+    font-style: italic;
+    color: #666666;
+    font-size: 0.9em;
+}
+
+.warn {
+    font-style: normal;
+    color: #CC0000;
+}

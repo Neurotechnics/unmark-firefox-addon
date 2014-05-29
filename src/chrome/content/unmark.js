@@ -5,17 +5,20 @@ com.neurotechnics.unmark = {};
 
 (function (unmark) {
 
-    unmark.version         = "0.1.4";
-    unmark.iVersion        = 2014042901;
-    unmark.debug           = false;
+    unmark.version         = "{%PACKAGE_VERSION%}";
+    unmark.iVersion        = {%BUILD_NUMBER%};
+    unmark.debug           = {%DEBUG_MODE%};
     unmark.preferences     = null;
     unmark.tabContainer    = null;
     unmark.unmarkUrl       = '';
+    unmark.maxQsLength     = 2048;
     unmark.toolbarButtonId = 'unmark-toolbar-button';
     unmark.constants       = {
         firstRun            : "firstRun",
         serverUrl           : "url",
-        defaultServerUrl    : "https://unmark.it"
+        defaultServerUrl    : "https://unmark.it",
+        maxQsLength         : "maxqslength",
+        defaultMaxQsLength  : 2048
         //,firstRunPref        : "extensions.unmark.firstRun";
     };
     //unmark.consoleService  = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
@@ -110,28 +113,29 @@ com.neurotechnics.unmark = {};
 
         if (recentUrl) {
             unmark.log('Bookmarking: '+ recentUrl);
-            var url = unmark.unmarkUrl + "/mark/add?url=" + encodeURIComponent(recentUrl);
-            url += "&title="+ encodeURIComponent(title);
+            var url = unmark.unmarkUrl + "/mark/add";
+                qs = "?url=" + encodeURIComponent(recentUrl);
+            qs += "&title="+ encodeURIComponent(title);
             if (description || keywords) {
-                url += "&notes=";
-                if (description) url += encodeURIComponent(description);
-                if (keywords) {
-                    // Some sites separate keywords with a semi-colon instead of comma (tisk tisk)
-                    var aKeys = keywords.replace(/;/g, ',').split(',');
-
-                    //if the last element is blank, pop it off the end of the array.
-                    aKeys = aKeys.filter(function(o){ return o!== ''; });
-
-                    for (var i = aKeys.length - 1; i >= 0; i--) {
-                        aKeys[i] = aKeys[i].replace(/[ \-]/gi, '-').trim();
+                qs += "&notes=";
+                if (description) {
+                    var eDescription = encodeURIComponent(description);
+                    if (qs.length + eDescription.length <= unmark.maxQsLength) {
+                        qs += eDescription;
                     }
-                    var tagString = ' #'+ aKeys.join(' #');
-                    url += encodeURIComponent(tagString);
+                }
+                if (keywords) {
+                    var tagString = unmark.parseKeywords(keywords),
+                        eTags = encodeURIComponent(tagString);
+                    if (qs.length + eTags.length <= unmark.maxQsLength) {
+                        qs += eTags;
+                    }
                 }
             }
             //Notes?? 0x23 = #
-            url += "&v=1&nowindow=yes&noui=1";
-            //unmark.log("URL: "+ url);
+            qs += "&v=1&nowindow=yes&noui=1";
+            url += qs;
+            unmark.log("URL: "+ url);
             //var w = window.open(url+"&noui=1", "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
             var w = window.open(url, "Unmark", "location=0,links=0,scrollbars=0,toolbar=0,width=600,height=480");
         } else {
@@ -264,6 +268,15 @@ com.neurotechnics.unmark = {};
     };
 
     /**
+     * Loads the "Maximum Query String Length" setting from the extension preferences (as defined by the user).
+     * @return {Integer} The user setting value
+     */
+    unmark.getMaxQsLength = function () {
+        var maxlen = unmark.preferences.getIntPref(unmark.constants.maxQsLength) || unmark.constants.defaultMaxQsLength;
+        return maxlen;
+    };
+
+    /**
      * Installs the toolbar button with the given ID into the given
      * toolbar, if it is not already present in the document.
      *
@@ -306,6 +319,41 @@ com.neurotechnics.unmark = {};
             //if (toolbarId == "addon-bar") toolbar.collapsed = false;
         }
         */
+    };
+
+    unmark.parseKeywords = function (keywords) {
+        if (keywords.trim() === '') return '';
+
+        var tags = '',
+            separator = false,
+            hasComma = keywords.contains(','),
+            hasSemicolon = keywords.contains(';'),
+            hasSpace = keywords.contains(' ');
+
+        // Some sites separate keywords with a semi-colon (or even a space) instead of comma (tisk tisk)
+        if (hasComma) {
+            separator = ',';
+        } else if (hasSemicolon) {
+            separator = ';';
+        } else if (hasSpace) {
+            separator = ' ';
+        }
+
+        if (!separator) return '';
+
+        var aKeys = keywords.split(separator);
+        unmark.log('Split Tags ('+ (typeof aKeys) +') = '+ aKeys);
+        if (!com.neurotechnics.lib.isArray(akeys)) return '';
+
+
+        //if the last element is blank, pop it off the end of the array.
+        aKeys = aKeys.filter(function(o){ return o!== ''; });
+
+        for (var i = aKeys.length - 1; i >= 0; i--) {
+            aKeys[i] = aKeys[i].trim().replace(/[ \-]/gi, '-');
+        }
+        tags = ' #'+ aKeys.join(' #');
+        return tags;
     };
 
 })(com.neurotechnics.unmark);

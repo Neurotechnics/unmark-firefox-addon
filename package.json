@@ -1,40 +1,42 @@
 {
-    "name": "unmark",
-    "title": "Unmark - Bookmark to-do list Firefox addon",
-    "version": "0.1.4",
-    "homepage": "http://www.neurotechnics.com/blog/unmark-firefox-extension/",
-    "description": "Unmark - Add web-pages to your unmark.it reading list.",
-    "author": {
-        "name": "Neurotechnics",
-        "url": "https://www.neurotechnics.com"
-    },
-    "contributors": [
-        {
-            "name": "James Price",
-            "email": "jprice@neurotechnics.com"
-        }
-    ],
-    "licenses": [
-        { "type": "MIT" }
-    ],
-    "bugs": {
-        "url": "http://mantis.neurotechnics.com/",
-        "email": "support@neurotechnics.com"
-    },
-    "repository": {
-        "type" : "git",
-        "url" : "https://github.com/Neurotechnics/unmark-firefox-addon.git"
-    },
-    "main": "gruntfile.js",
-    "devDependencies": {
-        "load-grunt-tasks": "~0.3.0",
-        "glob": "~3.2.9",
-        "grunt": "~0.4.4",
-        "grunt-contrib-sass": "~0.7.3",
-        "grunt-contrib-uglify": "~0.4.0",
-        "grunt-contrib-watch": "~0.5.3",
-        "grunt-string-replace": "~0.2.7",
-        "grunt-contrib-concat": "~0.3.0",
-        "grunt-contrib-copy": "~0.5.0"
+  "name": "unmark",
+  "title": "Unmark - The bookmark to-do list - Firefox addon",
+  "version": "0.1.5",
+  "homepage": "http://www.neurotechnics.com/blog/unmark-firefox-extension/",
+  "description": "Unmark - Add web-pages to your unmark.it reading list.",
+  "author": {
+    "name": "Neurotechnics",
+    "url": "https://www.neurotechnics.com"
+  },
+  "contributors": [
+    {
+      "name": "James Price",
+      "email": "jprice@neurotechnics.com"
     }
+  ],
+  "licenses": [
+    {
+      "type": "GPL-2.0"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Neurotechnics/unmark-firefox-addon/issues",
+    "email": "support@neurotechnics.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Neurotechnics/unmark-firefox-addon.git"
+  },
+  "main": "gruntfile.js",
+  "devDependencies": {
+    "load-grunt-tasks": "~0.3.0",
+    "glob": "~3.2.9",
+    "grunt": "~0.4.4",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-string-replace": "~0.2.7",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-compress": "^0.9.1",
+    "grunt-contrib-clean": "^0.5.0"
+  }
 }

@@ -20,6 +20,14 @@ or, sign up for a free or premium account at [https://unmark.it](https://unmark.
 
 ## Version History
 
+### 0.1.5 - May 29, 2014
+* Added restrictions to "QueryString" length for IIS hosted installations.
+* Updated page *description* and *keyword* parsing.
+* Updated shortcut keys:
+	* [Ctrl]+[Alt]+[B] - **B**ookmark the current page;
+	* [Ctrl]+[Alt]+[U] - View your **U**nmark reading list;
+* Updated icons.
+
 ### 0.1.4 - April 29, 2014
 
 * Automatically add "notes" based on the pages description and keyword meta-tags.

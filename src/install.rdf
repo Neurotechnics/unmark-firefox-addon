@@ -6,7 +6,7 @@
         <em:id>unmark@neurotechnics.com</em:id>
         <em:type>2</em:type>
         <em:name>Unmark</em:name>
-        <em:version>0.1.4</em:version>
+        <em:version>{%PACKAGE_VERSION%}</em:version>
         <em:description>Quickly add the current page to your Unmark.it bookmark to-do list</em:description>
         <em:creator>Neurotechnics</em:creator>
         <em:developer>James Price</em:developer>

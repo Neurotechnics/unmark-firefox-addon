@@ -1,2 +1,5 @@
 <!ENTITY pref_title "Unmark Preferences">
 <!ENTITY lbl_server_url "Custom Unmark Server URL">
+<!ENTITY lbl_server_maxqs "Maximum description length">
+<!ENTITY desc_server_maxqs "Some servers restrict the length of a QueryString. Change this only if you have configured your own server and know what you are doing.">
+<!ENTITY desc_server_maxqs_zero "A value of 0 will allow unrestricted length.">

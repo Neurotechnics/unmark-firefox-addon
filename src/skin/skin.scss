@@ -1,0 +1,27 @@
+#unmark-toolbar-button {
+	list-style-image: url("chrome://unmark/skin/toolbar-icon-large.png");
+}
+
+toolbar[iconsize="small"] #unmark-toolbar-button {
+    list-style-image: url("chrome://unmark/skin/toolbar-icon-small.png");
+}
+
+//#unmark-status-bar-icon {
+//	  width: 83px;
+//	  margin: 0 5px;
+//}
+
+
+#menu_Unmark,
+.unmark-menu-run {
+    list-style-image: url("chrome://unmark/skin/menuitem-mark.png");
+}
+
+.unmark-menu-view {
+    list-style-image: url("chrome://unmark/skin/menuitem-read.png");
+}
+
+.unmark-menu-run,
+.unmark-menu-view {
+    -moz-image-region: rect(0px 16px 16px 0px);
+}

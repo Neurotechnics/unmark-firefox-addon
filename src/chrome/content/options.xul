@@ -1,31 +1,41 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://unmark/skin/options.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://unmark/locale/options.dtd">
 <prefwindow
     id="unmark-preferences-prefwindow"
     title="Unmark Preferences"
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<prefpane id="unmark-preferences-prefpane" label="&pref_title;">
-		<preferences>
-			<preference id="unmark-url" name="extensions.unmark.url" type="string" />
-		</preferences>
+    <prefpane id="unmark-preferences-prefpane" label="&pref_title;" flex="1">
+        <preferences>
+            <preference id="unmark-url" name="extensions.unmark.url" type="string" />
+            <preference id="unmark-max-qs-length" name="extensions.unmark.maxqslength" type="int" />
+        </preferences>
 
-		<groupbox>
-			<caption label="Connection Settings" />
-			<grid>
-				<columns>
-					<column flex="4" />
-					<column flex="1" />
-				</columns>
-				<rows>
-					<row>
-						<label control="url" value="&lbl_server_url;" />
-						<textbox id="url" preference="unmark-url" width="300" maxlength="1024" />
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
-
-	</prefpane>
+        <groupbox class="pref-group">
+            <caption label="Connection Settings" />
+            <grid>
+                <columns>
+                    <column width="160"/>
+                    <column/>
+                </columns>
+                <rows>
+                    <row>
+                        <label control="url" value="&lbl_server_url;" />
+                        <textbox id="url" preference="unmark-url" width="300" maxlength="1024" />
+                    </row>
+                    <vbox>
+                        <separator style="height: 0.5em;" orient="vertical"/>
+                        <description class="notes">&desc_server_maxqs;</description>
+                        <description class="notes warn">&desc_server_maxqs_zero;</description>
+                    </vbox>
+                    <row>
+                        <label control="max-qs-length" value="&lbl_server_maxqs;" />
+                        <textbox id="max-qs-length" preference="unmark-max-qs-length" width="60" maxlength="6" />
+                    </row>
+                </rows>
+            </grid>
+        </groupbox>
+    </prefpane>
 </prefwindow>

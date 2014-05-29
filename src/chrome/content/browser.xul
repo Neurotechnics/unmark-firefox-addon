@@ -1,30 +1,24 @@
 <?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://unmark/skin/skin.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://unmark/locale/translations.dtd">
 <overlay id="unmark-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://unmark/content/neurotechnics.lib.js"/>
     <script type="application/x-javascript" src="chrome://unmark/content/unmark.js"/>
-    <script type="application/x-javascript">
-    <![CDATA[
-        // Register handlers to maintain extension life cycle.
-        //window.addEventListener("load", com.neurotechnics.unmark.startup, false);
-        //window.addEventListener("unload", com.neurotechnics.unmark.shutdown, false);
-    ]]>
-    </script>
 
     <menupopup id="menu_ToolsPopup">
-        <menu id="menu_Unmark" label="Unmark">
+        <menu id="menu_Unmark" label="Unmark" class="menu-iconic">
             <menupopup>
-                <menuitem id="unmark-toolbarmenuitem-run" label="&menu_run;" key="unmark-run-key" class="unmark-menu-run" oncommand="com.neurotechnics.unmark.run()" />
-                <menuitem id="unmark-toolbarmenuitem-launch" label="&menu_view;" key="unmark-view-key" class="unmark-menu-view" oncommand="com.neurotechnics.unmark.launchSite()" />
+                <menuitem id="unmark-toolbarmenuitem-run" label="&menu_run;" key="unmark-run-key" class="menuitem-iconic unmark-menu-run" oncommand="com.neurotechnics.unmark.run()" />
+                <menuitem id="unmark-toolbarmenuitem-view" label="&menu_view;" key="unmark-view-key" class="menuitem-iconic unmark-menu-view" oncommand="com.neurotechnics.unmark.launchSite()" />
             </menupopup>
         </menu>
     </menupopup>
 
     <keyset>
         <key id="unmark-run-key" modifiers="accel alt" key="B" oncommand="com.neurotechnics.unmark.run()" />
-        <key id="unmark-view-key" modifiers="accel alt" key="V" oncommand="com.neurotechnics.unmark.launchSite()" />
+        <key id="unmark-view-key" modifiers="accel alt" key="U" oncommand="com.neurotechnics.unmark.launchSite()" />
     </keyset>
 
     <toolbarpalette id="BrowserToolbarPalette">
@@ -36,7 +30,7 @@
             class="toolbarbutton-1 chromeclass-toolbar-additional custombutton">
             <menupopup>
                 <menuitem id="unmark-buttonmenuitem-run" label="&menu_run;" class="menuitem-iconic unmark-menu-run" oncommand="com.neurotechnics.unmark.run(); event.stopPropagation();" />
-                <menuitem id="unmark-buttonmenuitem-launch" label="&menu_view;" class="menuitem-iconic unmark-menu-view" oncommand="com.neurotechnics.unmark.launchSite(); event.stopPropagation();" />
+                <menuitem id="unmark-buttonmenuitem-view" label="&menu_view;" class="menuitem-iconic unmark-menu-view" oncommand="com.neurotechnics.unmark.launchSite(); event.stopPropagation();" />
             </menupopup>
         </toolbarbutton>
     </toolbarpalette>
