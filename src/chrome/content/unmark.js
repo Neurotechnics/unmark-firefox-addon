@@ -1,3 +1,5 @@
+"use strict";
+
 // Setup "neurotechnics.com" Namespace
 if (typeof com == 'undefined') { var com = {}; }
 com.neurotechnics = com.neurotechnics || {};
@@ -113,7 +115,7 @@ com.neurotechnics.unmark = {};
 
         if (recentUrl) {
             unmark.log('Bookmarking: '+ recentUrl);
-            var url = unmark.unmarkUrl + "/mark/add";
+            var url = unmark.unmarkUrl + "/mark/add",
                 qs = "?url=" + encodeURIComponent(recentUrl);
             qs += "&title="+ encodeURIComponent(title);
             if (description || keywords) {
@@ -342,8 +344,8 @@ com.neurotechnics.unmark = {};
         if (!separator) return '';
 
         var aKeys = keywords.split(separator);
-        unmark.log('Split Tags ('+ (typeof aKeys) +') = '+ aKeys);
-        if (!com.neurotechnics.lib.isArray(akeys)) return '';
+        //unmark.log('Split Tags ('+ (typeof aKeys) +') = '+ aKeys);
+        if (!com.neurotechnics.lib.isArray(aKeys)) return '';
 
 
         //if the last element is blank, pop it off the end of the array.
