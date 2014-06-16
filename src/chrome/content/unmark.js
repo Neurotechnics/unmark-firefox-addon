@@ -5,7 +5,7 @@ if (typeof com == 'undefined') { var com = {}; }
 com.neurotechnics = com.neurotechnics || {};
 com.neurotechnics.unmark = {};
 
-(function (unmark) {
+(function (unmark, window, document, Components, gBrowser, undefined) {
 
     unmark.version         = "{%PACKAGE_VERSION%}";
     unmark.iVersion        = {%BUILD_NUMBER%};
@@ -358,7 +358,7 @@ com.neurotechnics.unmark = {};
         return tags;
     };
 
-})(com.neurotechnics.unmark);
+})(com.neurotechnics.unmark, window, document, Components, gBrowser);
 
 window.addEventListener("load", function (e) { com.neurotechnics.unmark.startup(); }, false);
 window.addEventListener("unload", function (e) { com.neurotechnics.unmark.shutdown(); }, false);
