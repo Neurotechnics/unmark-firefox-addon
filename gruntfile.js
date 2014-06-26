@@ -134,7 +134,7 @@ module.exports = function(grunt) {
                     archive: 'dist/unmark@neurotechnics.com.<%=build.buildId%>.xpi'
                 },
                 files: [
-                    { expand: true, cwd: '<%= build.dest %>/', src: ['**'], dest: '/' }
+                    { expand: true, cwd: '<%= build.dest %>/', src: ['**/*'], dest: '/' }
                 ]
             }
         }
