@@ -32,7 +32,7 @@
                     </vbox>
                     <row>
                         <label control="max-qs-length" value="&lbl_server_maxqs;" />
-                        <textbox id="max-qs-length" preference="unmark-max-qs-length" width="60" maxlength="6" />
+                        <textbox id="max-qs-length" preference="unmark-max-qs-length" width="20" maxlength="6" />
                     </row>
                 </rows>
             </grid>

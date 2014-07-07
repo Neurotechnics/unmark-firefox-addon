@@ -11,10 +11,37 @@
         <em:creator>Neurotechnics</em:creator>
         <em:developer>James Price</em:developer>
         <em:contributor></em:contributor>
-        <em:translator></em:translator>
+        <em:translator>Google</em:translator>
         <em:homepageURL>http://www.neurotechnics.com/blog/unmark-firefox-extension/</em:homepageURL>
         <em:iconURL>chrome://unmark/skin/logo.png</em:iconURL>
         <em:optionsURL>chrome://unmark/content/options.xul</em:optionsURL>
+
+        <!-- German / Deutsch -->
+        <em:localized>
+            <Description>
+                <em:locale>de</em:locale>
+                <em:name>Unmark</em:name>
+                <em:description>Fügen Sie schnell die aktuelle Seite zu Ihren Lesezeichen http://unmark.it to-do-Liste</em:description>
+            </Description>
+        </em:localized>
+        
+        <!-- French / Français -->
+        <em:localized>
+            <Description>
+                <em:locale>fr</em:locale>
+                <em:name>Unmark</em:name>
+                <em:description>Ajouter rapidement la page en cours à votre http://unmark.it signet to-do list</em:description>
+            </Description>
+        </em:localized>
+
+        <!-- Russion / Русский -->
+        <em:localized>
+            <Description>
+                <em:locale>ru</em:locale>
+                <em:name>Unmark</em:name>
+                <em:description>Быстро добавить текущую страницу в http://unmark.it закладки список задач</em:description>
+            </Description>
+        </em:localized>
 
         <!-- Firefox -->
         <em:targetApplication>

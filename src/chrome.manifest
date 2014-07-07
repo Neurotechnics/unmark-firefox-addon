@@ -7,3 +7,6 @@ overlay     chrome://browser/content/browser.xul            chrome://unmark/cont
 style       chrome://global/content/customizeToolbar.xul    chrome://unmark/skin/skin.css
 
 locale      unmark  en-US               locale/en-US/
+locale      unmark  de                  locale/de/
+locale      unmark  fr                  locale/fr/
+locale      unmark  ru                  locale/ru/

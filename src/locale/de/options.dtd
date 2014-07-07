@@ -1,0 +1,5 @@
+<!ENTITY pref_title "Unmark Einstellungen">
+<!ENTITY lbl_server_url "Benutzerdefinierte Unmark Server-URL">
+<!ENTITY lbl_server_maxqs "Maximale Länge Beschreibung">
+<!ENTITY desc_server_maxqs "Einige Server beschränken die Länge eines Querystring. Ändern Sie diese nur, wenn Sie Ihren eigenen Server konfiguriert haben und wissen, was Sie tun.">
+<!ENTITY desc_server_maxqs_zero "Ein Wert von 0 wird unbeschränkter Länge ermöglichen.">
