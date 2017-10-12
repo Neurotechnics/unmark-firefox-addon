@@ -1,3 +1,10 @@
+# Deprecation Notice
+Unfortunately, as of Firefox 48 (featuring multiprocess, or e10s) this plugin suffers problems accessing the contents of tabs in separate processes to the plugin itself.
+As of Firefox 57 (feature Web Extensions), this plugin no longer works.
+There will not be any further updates to the plugin, as unmark itself seems to have been abandoned.
+
+I will update you all shortly on a replacement plugin for an alternative service.
+
 # Unmark firefox extension
 
 The Unmark extension for firefox, adds a button to your firefox toolbar allowing you to quickly add a bookmark for the page you're viewing to your Unmark Reading-List.
